@@ -7,7 +7,7 @@ var board = {
 
 function startGame () {
   generateBoard(6)
-  
+
   for(var i = 0; i < board.cells.length; i++) {
     board.cells[i].surroundingMines = countSurroundingMines(board.cells[i])
   }
@@ -77,5 +77,3 @@ function generateBoard(rowColSize) {
     board.cells[Math.floor(Math.random() * board.cells.length)].isMine = true;
   }
 }
-
-//Generate mines
