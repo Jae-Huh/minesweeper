@@ -2,20 +2,12 @@ document.addEventListener('DOMContentLoaded', startGame)
 
 // Define your `board` object here!
 var board = {
-  cells: [
-    {row: 0, col: 0, isMine: true, hidden: true},
-    {row: 0, col: 1, isMine: false, hidden: true},
-    {row: 0, col: 2, isMine: true, hidden: true},
-    {row: 1, col: 0, isMine: false, hidden: true},
-    {row: 1, col: 1, isMine: false, hidden: true},
-    {row: 1, col: 2, isMine: true, hidden: true},
-    {row: 2, col: 0, isMine: false, hidden: true},
-    {row: 2, col: 1, isMine: true, hidden: true},
-    {row: 2, col: 2, isMine: false, hidden: true}
-  ]
+  cells: []
 }
 
 function startGame () {
+  generateBoard(6)
+  
   for(var i = 0; i < board.cells.length; i++) {
     board.cells[i].surroundingMines = countSurroundingMines(board.cells[i])
   }
@@ -63,3 +55,27 @@ function countSurroundingMines (cell) {
   }
   return count
 }
+
+// Customisation begins here!! Woop woop!!-----------------------
+
+//Generates cells
+function generateBoard(rowColSize) {
+  for (var i = 0; i < rowColSize * rowColSize; i++) {
+    board.cells[i] = {
+      row: Math.floor(i / rowColSize),
+      col: i % rowColSize,
+      isMine: Math.random() < 0.33 ? true : false,
+      isMarked: false,
+      hidden: true
+    }
+  }
+
+  var mineList = board.cells.filter(function(cell) {
+    return cell.isMine
+  })
+  if (mineList.length === 0) {
+    board.cells[Math.floor(Math.random() * board.cells.length)].isMine = true;
+  }
+}
+
+//Generate mines
