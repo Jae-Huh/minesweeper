@@ -17,6 +17,7 @@ function startGame () {
 
   document.addEventListener('click', checkForWin)
   document.addEventListener('contextmenu', checkForWin)
+  document.getElementById('reset-btn').addEventListener('click', resetGame)
 }
 
 // Define this function to look for a win condition:
@@ -70,10 +71,19 @@ function generateBoard(rowColSize) {
     }
   }
 
+//Checks if the board has any mine. If none of the cells is a mine, choose a random cell and make it a mine.
   var mineList = board.cells.filter(function(cell) {
     return cell.isMine
   })
   if (mineList.length === 0) {
     board.cells[Math.floor(Math.random() * board.cells.length)].isMine = true;
   }
+}
+
+//Restart the game when the reset button is pressed
+function resetGame() {
+  var oldBoard = document.getElementsByClassName('board')[0]
+  console.log(oldBoard)
+  oldBoard.innerHTML = ''
+  startGame()
 }

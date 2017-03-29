@@ -4,10 +4,10 @@ html, body {
 }
 
 body {
-  display: flex;
+  /*display: flex;
   align-items: center;
   justify-content: flex-center;
-  flex-direction: column;
+  flex-direction: column;*/
 }
 
 #message, #notes {
@@ -23,6 +23,7 @@ body {
 .board {
   display: flex;
   flex-wrap: wrap;
+  margin: auto;
 }
 
 .board div {
@@ -57,4 +58,9 @@ div.hidden:hover {
 
 div.marked, div.marked:hover {
   background: no-repeat center/60% url("images/mark.svg") deepskyblue;
+}
+
+#reset-btn {
+  display: block;
+  margin: 30px auto;
 }
