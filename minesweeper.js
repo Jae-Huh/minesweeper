@@ -5,8 +5,15 @@ var board = {
   cells: []
 }
 
+//Sound
+var explosion
+var applause
+
 function startGame () {
-  generateBoard(6)
+  //Sound
+  explosion = document.getElementById('explosion')
+  applause = document.getElementById('applause')
+  generateBoard(3)
 
   for(var i = 0; i < board.cells.length; i++) {
     board.cells[i].surroundingMines = countSurroundingMines(board.cells[i])
@@ -18,6 +25,7 @@ function startGame () {
   document.addEventListener('click', checkForWin)
   document.addEventListener('contextmenu', checkForWin)
   document.getElementById('reset-btn').addEventListener('click', resetGame)
+  document.getElementsByClassName('board')[0].addEventListener('click', bombClicked)
 }
 
 // Define this function to look for a win condition:
@@ -32,10 +40,12 @@ function checkForWin () {
       return
     }
   }
+
   // You can use this function call to declare a winner (once you've
   // detected that they've won, that is!)
   //   lib.displayMessage('You win!')
   lib.displayMessage('You win!')
+  applause.play()
 }
 
 // Define this function to count the number of mines around the cell
@@ -83,7 +93,14 @@ function generateBoard(rowColSize) {
 //Restart the game when the reset button is pressed
 function resetGame() {
   var oldBoard = document.getElementsByClassName('board')[0]
-  console.log(oldBoard)
   oldBoard.innerHTML = ''
   startGame()
+}
+
+//Play bomb sound
+function bombClicked(event) {
+  var cell = event.target
+  if (cell.classList.contains('mine')) {
+    explosion.play()
+  }
 }
