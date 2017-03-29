@@ -46,6 +46,7 @@ function checkForWin () {
   //   lib.displayMessage('You win!')
   lib.displayMessage('You win!')
   applause.play()
+  removeListeners()
 }
 
 // Define this function to count the number of mines around the cell
@@ -103,4 +104,12 @@ function bombClicked(event) {
   if (cell.classList.contains('mine')) {
     explosion.play()
   }
+}
+
+
+// Cloning removes event listeners - to be used when the player wins and make the bombs unclickable
+function removeListeners () {
+  var board = document.getElementsByClassName('board')[0]
+  var clone = board.cloneNode(true)
+  board.parentNode.replaceChild(clone, board)
 }
