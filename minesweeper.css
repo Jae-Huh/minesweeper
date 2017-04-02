@@ -64,3 +64,9 @@ div.marked, div.marked:hover {
   display: block;
   margin: 30px auto;
 }
+
+.board-size {
+  display: block;
+  width: 158px;
+  margin: auto;
+}

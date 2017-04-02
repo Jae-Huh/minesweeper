@@ -9,11 +9,14 @@ var board = {
 var explosion
 var applause
 
+//Board-size
+var boardSize = 3
+
 function startGame () {
   //Sound
   explosion = document.getElementById('explosion')
   applause = document.getElementById('applause')
-  generateBoard(3)
+  generateBoard(boardSize)
 
   for(var i = 0; i < board.cells.length; i++) {
     board.cells[i].surroundingMines = countSurroundingMines(board.cells[i])
@@ -26,6 +29,23 @@ function startGame () {
   document.addEventListener('contextmenu', checkForWin)
   document.getElementById('reset-btn').addEventListener('click', resetGame)
   document.getElementsByClassName('board')[0].addEventListener('click', bombClicked)
+  document.getElementById('board-size-buttons').addEventListener('click', function(event) {
+    //prevents error when between elements is clicked
+    if (event.target.dataset.size) {
+      changeBoardSize(event.target.dataset.size)
+    }
+  })
+
+
+  // var boardSizeBtn = document.getElementsByClassName('board-size-btn')
+  // for (var i = 0; i < boardSizeBtn.length; i++) {
+  //   console.log(boardSizeBtn[i])
+  //   var size = boardSizeBtn[i].dataset.size
+  //   boardSizeBtn[i].addEventListener('click', function() {
+  //     console.log(size)
+  //     changeBoardSize(size)
+  //   })
+  // }
 }
 
 // Define this function to look for a win condition:
@@ -112,4 +132,18 @@ function removeListeners () {
   var board = document.getElementsByClassName('board')[0]
   var clone = board.cloneNode(true)
   board.parentNode.replaceChild(clone, board)
+}
+
+
+//Reset Game
+function changeBoardSize(size) {
+  //prevents error when between elements is clicked
+  if (!size) { return }
+  var oldBoard = document.getElementsByClassName('board')[0]
+  oldBoard.innerHTML = ''
+  board = {
+    cells: []
+  }
+  boardSize = size
+  startGame()
 }
