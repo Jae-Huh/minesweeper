@@ -76,7 +76,7 @@ function generateBoard(rowColSize) {
     board.cells[i] = {
       row: Math.floor(i / rowColSize),
       col: i % rowColSize,
-      isMine: Math.random() < 0.33 ? true : false,
+      isMine: Math.random() < 0.2 ? true : false,
       isMarked: false,
       hidden: true
     }
